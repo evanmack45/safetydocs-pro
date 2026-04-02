@@ -10,10 +10,12 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   title: "SafetyDocs Pro - AI-Powered OSHA Compliance Documents",
   description:
-    "Generate professional OSHA toolbox talks and safety documents for residential construction subcontractors. AI-powered, instant PDF download.",
+    "Generate professional OSHA toolbox talks and Job Safety Analyses (JSA) for residential construction subcontractors. AI-powered, instant PDF download.",
   keywords: [
     "OSHA compliance",
     "toolbox talks",
+    "job safety analysis",
+    "JSA",
     "construction safety",
     "safety documents",
     "residential construction",

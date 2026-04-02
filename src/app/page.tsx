@@ -20,28 +20,28 @@ function HeroSection() {
             Built for Residential Construction Subs
           </div>
           <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            OSHA Toolbox Talks
+            OSHA Safety Documents
             <br />
             <span className="text-amber-400">Generated in Seconds</span>
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-lg text-blue-100 sm:text-xl">
             Stop spending hours writing safety documents. SafetyDocs Pro uses AI
-            to generate professional, OSHA-compliant toolbox talks tailored to
-            your trade and project. Download as PDF instantly.
+            to generate professional, OSHA-compliant toolbox talks and Job Safety
+            Analyses tailored to your trade and project. Download as PDF instantly.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/generate"
               className="rounded-lg bg-amber-500 px-8 py-4 text-lg font-semibold text-gray-900 shadow-lg transition hover:bg-amber-400"
             >
-              Generate a Toolbox Talk — Free
+              Generate a Document
             </Link>
-            <a
-              href="#how-it-works"
+            <Link
+              href="/pricing"
               className="rounded-lg border border-white/30 px-8 py-4 text-lg font-semibold text-white transition hover:bg-white/10"
             >
-              See How It Works
-            </a>
+              View Pricing
+            </Link>
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@ function HowItWorksSection() {
               step: "2",
               title: "AI Generates Your Document",
               description:
-                "Our AI creates a professional toolbox talk with correct OSHA regulation citations, specific to your trade and project.",
+                "Our AI creates a professional toolbox talk or JSA with correct OSHA regulation citations, specific to your trade and project.",
             },
             {
               step: "3",
@@ -159,7 +159,7 @@ function HowItWorksSection() {
             href="/generate"
             className="inline-block rounded-lg bg-blue-800 px-8 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-blue-700"
           >
-            Generate Your First Toolbox Talk
+            Generate Your First Document
           </Link>
         </div>
       </div>
