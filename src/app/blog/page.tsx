@@ -20,6 +20,33 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "trench-safety-small-contractors",
+    title:
+      "Trench Safety for Small Contractors: OSHA Excavation Requirements",
+    description:
+      "OSHA trench and excavation safety requirements for small contractors. When trench protection is required, soil types, protective systems, and the competent person rule.",
+    date: "April 2, 2026",
+    readTime: "10 min",
+  },
+  {
+    slug: "electrical-safety-construction-sites",
+    title:
+      "Electrical Safety on Construction Sites: A Contractor's Checklist",
+    description:
+      "Electrical safety requirements for construction contractors. GFCI requirements, lockout/tagout basics, cord management, and how to keep your crew compliant.",
+    date: "April 2, 2026",
+    readTime: "9 min",
+  },
+  {
+    slug: "ladder-safety-construction-workers",
+    title:
+      "Ladder Safety for Construction Workers: OSHA Rules and Best Practices",
+    description:
+      "OSHA ladder safety requirements for construction explained in plain language. The 4:1 rule, 3-point contact, inspection checklists, and how to keep your crew compliant.",
+    date: "April 2, 2026",
+    readTime: "8 min",
+  },
+  {
     slug: "toolbox-talk-topics-construction",
     title:
       "25 OSHA Toolbox Talk Topics for Construction Crews",
