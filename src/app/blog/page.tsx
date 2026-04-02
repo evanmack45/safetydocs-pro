@@ -20,6 +20,24 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "construction-safety-new-employees",
+    title:
+      "Construction Safety for New Employees: First-Day Training Checklist",
+    description:
+      "A first-day safety training checklist for new construction employees. What OSHA requires you to cover, documentation tips, and how to get new hires jobsite-ready fast.",
+    date: "April 2, 2026",
+    readTime: "9 min",
+  },
+  {
+    slug: "competent-person-osha-contractors",
+    title:
+      "What Is a Competent Person Under OSHA? A Contractor's Guide",
+    description:
+      "What OSHA means by 'competent person,' which standards require one, how to designate and train your competent person, and documentation requirements for contractors.",
+    date: "April 2, 2026",
+    readTime: "9 min",
+  },
+  {
     slug: "how-to-pass-osha-inspection",
     title:
       "How to Pass an OSHA Inspection: A Small Contractor's Checklist",

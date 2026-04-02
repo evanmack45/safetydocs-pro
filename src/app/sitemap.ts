@@ -112,5 +112,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    {
+      url: `${BASE_URL}/blog/construction-safety-new-employees`,
+      lastModified: new Date("2026-04-02"),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/blog/competent-person-osha-contractors`,
+      lastModified: new Date("2026-04-02"),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
   ];
 }
