@@ -20,6 +20,33 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "how-to-pass-osha-inspection",
+    title:
+      "How to Pass an OSHA Inspection: A Small Contractor's Checklist",
+    description:
+      "A practical checklist for small residential contractors to prepare for OSHA inspections. What inspectors look for, documents you need, penalty tiers, and how to stay ready year-round.",
+    date: "April 2, 2026",
+    readTime: "10 min",
+  },
+  {
+    slug: "nail-gun-safety-osha-requirements",
+    title:
+      "Nail Gun Safety: OSHA Requirements and Toolbox Talk Guide",
+    description:
+      "Nail gun safety requirements for construction workers. Sequential vs contact triggers, required PPE, common injuries, and a ready-to-use toolbox talk outline.",
+    date: "April 2, 2026",
+    readTime: "9 min",
+  },
+  {
+    slug: "scaffolding-safety-residential-construction",
+    title:
+      "Scaffolding Safety for Residential Construction: What OSHA Requires",
+    description:
+      "OSHA scaffolding requirements for residential contractors. When scaffolding is required vs ladders, guardrail rules, competent person designation, and 29 CFR 1926.451.",
+    date: "April 2, 2026",
+    readTime: "9 min",
+  },
+  {
     slug: "trench-safety-small-contractors",
     title:
       "Trench Safety for Small Contractors: OSHA Excavation Requirements",
