@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SocialProof from "@/components/SocialProof";
+import EmailCapture from "@/components/EmailCapture";
 
 export const metadata: Metadata = {
   title: "SafetyDocs Pro - AI-Powered OSHA Compliance Documents",
@@ -185,8 +187,10 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        <SocialProof />
         <PainPointSection />
         <HowItWorksSection />
+        <EmailCapture />
       </main>
       <Footer />
     </div>

@@ -33,6 +33,12 @@ export default function Header({ variant = "default" }: HeaderProps) {
             Blog
           </Link>
           <Link
+            href="/faq"
+            className={linkClass}
+          >
+            FAQ
+          </Link>
+          <Link
             href="/pricing"
             className={linkClass}
           >

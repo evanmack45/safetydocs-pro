@@ -20,6 +20,24 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "toolbox-talk-topics-construction",
+    title:
+      "25 OSHA Toolbox Talk Topics for Construction Crews",
+    description:
+      "A complete list of 25 toolbox talk topics for construction, organized by hazard type. Each topic includes what to cover and the relevant OSHA standard.",
+    date: "April 2, 2026",
+    readTime: "12 min",
+  },
+  {
+    slug: "osha-silica-dust-rule-construction",
+    title:
+      "OSHA Silica Dust Rule for Construction: Table 1 Compliance Explained",
+    description:
+      "How to comply with OSHA's silica dust rule (29 CFR 1926.1153) on construction sites. Table 1 explained in plain language for small contractors.",
+    date: "April 2, 2026",
+    readTime: "10 min",
+  },
+  {
     slug: "fall-protection-residential-roofers",
     title:
       "Fall Protection for Residential Roofers: OSHA Requirements Explained",
