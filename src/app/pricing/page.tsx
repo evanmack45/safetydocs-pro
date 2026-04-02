@@ -1,31 +1,22 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import Header from "@/components/Header";
 import { DOCUMENT_PRICES } from "@/lib/types";
 
-function Header() {
-  return (
-    <header className="border-b border-gray-200 bg-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-xl font-bold text-blue-800">
-          SafetyDocs Pro
-        </Link>
-        <nav className="flex items-center gap-6">
-          <Link
-            href="/generate"
-            className="text-sm text-gray-600 hover:text-blue-800"
-          >
-            Generate
-          </Link>
-          <Link
-            href="/"
-            className="text-sm text-gray-600 hover:text-blue-800"
-          >
-            Home
-          </Link>
-        </nav>
-      </div>
-    </header>
-  );
-}
+export const metadata: Metadata = {
+  title: "Pricing - Per-Document OSHA Compliance Documents",
+  description:
+    "Simple per-document pricing for OSHA toolbox talks ($29), Job Safety Analyses ($49), and Site-Specific Safety Plans ($79). No subscriptions.",
+  alternates: {
+    canonical: "https://safetydocspro.com/pricing",
+  },
+  openGraph: {
+    title: "Pricing - SafetyDocs Pro",
+    description:
+      "Simple per-document pricing for OSHA compliance documents. No subscriptions, no hidden fees.",
+    type: "website",
+  },
+};
 
 function PricingCard({
   type,

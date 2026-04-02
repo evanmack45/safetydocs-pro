@@ -4,7 +4,7 @@ import BlogLayout from "@/components/BlogLayout";
 
 export const metadata: Metadata = {
   title:
-    "What Is a Toolbox Talk? A Simple Guide for Contractors | SafetyDocs Pro",
+    "What Is a Toolbox Talk? A Simple Guide for Contractors",
   description:
     "Learn what toolbox talks are, why OSHA expects them, and how to run an effective safety meeting in 10 minutes before your crew starts work.",
   keywords: [
@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     "OSHA toolbox talk",
     "safety meeting topics construction",
   ],
+  alternates: {
+    canonical: "https://safetydocspro.com/blog/what-is-a-toolbox-talk",
+  },
   openGraph: {
     title:
       "What Is a Toolbox Talk? A Simple Guide for Contractors",
@@ -31,6 +34,7 @@ export default function ToolboxTalkGuide() {
       description="Learn what toolbox talks are, why OSHA expects them, and how to run one in 10 minutes before your crew starts work."
       publishDate="2026-04-02"
       readTime="7 min"
+      slug="what-is-a-toolbox-talk"
     >
       <p>
         If you run a small construction crew, you have probably heard

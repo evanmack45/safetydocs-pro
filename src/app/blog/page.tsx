@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Safety Blog for Contractors | SafetyDocs Pro",
+  title: "Safety Blog for Contractors",
   description:
     "Practical OSHA compliance guides, toolbox talk tips, and safety documentation help for small residential construction subcontractors.",
+  alternates: {
+    canonical: "https://safetydocspro.com/blog",
+  },
   openGraph: {
     title: "Safety Blog for Contractors | SafetyDocs Pro",
     description:
@@ -14,6 +19,33 @@ export const metadata: Metadata = {
 };
 
 const posts = [
+  {
+    slug: "fall-protection-residential-roofers",
+    title:
+      "Fall Protection for Residential Roofers: OSHA Requirements Explained",
+    description:
+      "What OSHA requires for fall protection on residential roofing jobs. The 6-foot rule, alternative procedures, and how to keep your crew compliant.",
+    date: "April 2, 2026",
+    readTime: "9 min",
+  },
+  {
+    slug: "heat-illness-prevention-construction",
+    title:
+      "Heat Illness Prevention on Construction Sites: A Toolbox Talk Guide",
+    description:
+      "How to prevent heat stroke, heat exhaustion, and heat cramps on construction jobsites. OSHA requirements, warning signs, and a practical toolbox talk outline.",
+    date: "April 2, 2026",
+    readTime: "8 min",
+  },
+  {
+    slug: "site-specific-safety-plan-sssp",
+    title:
+      "How to Create a Site-Specific Safety Plan (SSSP) for Small Contractors",
+    description:
+      "Step-by-step guide to writing a Site-Specific Safety Plan for residential construction. What to include, when you need one, and how to avoid common mistakes.",
+    date: "April 2, 2026",
+    readTime: "10 min",
+  },
   {
     slug: "what-is-a-toolbox-talk",
     title: "What Is a Toolbox Talk? A Simple Guide for Contractors",
@@ -45,33 +77,7 @@ const posts = [
 export default function BlogIndex() {
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b border-gray-200 bg-blue-900">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <Link href="/" className="text-xl font-bold text-white">
-            SafetyDocs Pro
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link
-              href="/blog"
-              className="text-sm font-medium text-white"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/pricing"
-              className="text-sm font-medium text-blue-200 transition hover:text-white"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/generate"
-              className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-gray-900 transition hover:bg-amber-400"
-            >
-              Generate Document
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Header variant="blog" />
 
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-12">
@@ -125,22 +131,7 @@ export default function BlogIndex() {
         </div>
       </main>
 
-      <footer className="border-t border-gray-200 bg-gray-50 py-8">
-        <div className="mx-auto max-w-6xl px-4 text-center text-sm text-gray-500 sm:px-6 lg:px-8">
-          <p className="mb-2 font-semibold text-gray-700">
-            SafetyDocs Pro
-          </p>
-          <p>
-            AI-generated documents are starting points. Always review
-            for accuracy and consult a qualified safety professional
-            for complex situations.
-          </p>
-          <p className="mt-2">
-            &copy; {new Date().getFullYear()} SafetyDocs Pro. All
-            rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

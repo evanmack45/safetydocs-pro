@@ -4,7 +4,7 @@ import BlogLayout from "@/components/BlogLayout";
 
 export const metadata: Metadata = {
   title:
-    "Free JSA Template for Construction: How to Do a Job Safety Analysis | SafetyDocs Pro",
+    "Free JSA Template for Construction: How to Do a Job Safety Analysis",
   description:
     "Step-by-step guide to writing a Job Safety Analysis (JSA) for construction work. Includes a free template and real examples for residential subcontractors.",
   keywords: [
@@ -16,6 +16,9 @@ export const metadata: Metadata = {
     "job hazard analysis construction",
     "construction safety documents",
   ],
+  alternates: {
+    canonical: "https://safetydocspro.com/blog/jsa-template-construction",
+  },
   openGraph: {
     title:
       "Free JSA Template for Construction: How to Do a Job Safety Analysis",
@@ -32,6 +35,7 @@ export default function JsaTemplate() {
       description="Step-by-step guide to writing a Job Safety Analysis for construction work, with a free template you can use today."
       publishDate="2026-04-02"
       readTime="9 min"
+      slug="jsa-template-construction"
     >
       <p>
         A Job Safety Analysis (JSA) — sometimes called a Job Hazard

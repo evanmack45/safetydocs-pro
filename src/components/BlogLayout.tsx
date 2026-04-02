@@ -1,4 +1,7 @@
 import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { ArticleJsonLd } from "@/components/JsonLd";
 
 interface BlogLayoutProps {
   children: React.ReactNode;
@@ -6,7 +9,10 @@ interface BlogLayoutProps {
   description: string;
   publishDate: string;
   readTime: string;
+  slug: string;
 }
+
+const BASE_URL = "https://safetydocspro.com";
 
 export default function BlogLayout({
   children,
@@ -14,39 +20,21 @@ export default function BlogLayout({
   description,
   publishDate,
   readTime,
+  slug,
 }: BlogLayoutProps) {
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b border-gray-200 bg-blue-900">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <Link
-            href="/"
-            className="text-xl font-bold text-white"
-          >
-            SafetyDocs Pro
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link
-              href="/blog"
-              className="text-sm font-medium text-blue-200 transition hover:text-white"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/pricing"
-              className="text-sm font-medium text-blue-200 transition hover:text-white"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/generate"
-              className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-gray-900 transition hover:bg-amber-400"
-            >
-              Generate Document
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Header variant="blog" />
+
+      <ArticleJsonLd
+        title={title}
+        description={description}
+        url={`${BASE_URL}/blog/${slug}`}
+        datePublished={publishDate}
+        authorName="SafetyDocs Pro"
+        publisherName="SafetyDocs Pro"
+        publisherUrl={BASE_URL}
+      />
 
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
         <div className="mb-8">
@@ -87,22 +75,7 @@ export default function BlogLayout({
         </div>
       </article>
 
-      <footer className="border-t border-gray-200 bg-gray-50 py-8">
-        <div className="mx-auto max-w-6xl px-4 text-center text-sm text-gray-500 sm:px-6 lg:px-8">
-          <p className="mb-2 font-semibold text-gray-700">
-            SafetyDocs Pro
-          </p>
-          <p>
-            AI-generated documents are starting points. Always review
-            for accuracy and consult a qualified safety professional
-            for complex situations.
-          </p>
-          <p className="mt-2">
-            &copy; {new Date().getFullYear()} SafetyDocs Pro. All
-            rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

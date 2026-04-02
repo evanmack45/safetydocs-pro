@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "SafetyDocs Pro - AI-Powered OSHA Compliance Documents",
+  description:
+    "Generate professional OSHA toolbox talks, JSAs, and safety plans for residential construction subcontractors. AI-powered, instant PDF download.",
+  alternates: {
+    canonical: "https://safetydocspro.com",
+  },
+};
 
 function HeroSection() {
   return (
@@ -167,30 +179,16 @@ function HowItWorksSection() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-gray-200 bg-gray-50 py-8">
-      <div className="mx-auto max-w-6xl px-4 text-center text-sm text-gray-500 sm:px-6 lg:px-8">
-        <p className="mb-2 font-semibold text-gray-700">SafetyDocs Pro</p>
-        <p>
-          AI-generated documents are starting points. Always review for accuracy
-          and consult a qualified safety professional for complex situations.
-        </p>
-        <p className="mt-2">
-          &copy; {new Date().getFullYear()} SafetyDocs Pro. All rights reserved.
-        </p>
-      </div>
-    </footer>
-  );
-}
-
 export default function Home() {
   return (
-    <main>
-      <HeroSection />
-      <PainPointSection />
-      <HowItWorksSection />
+    <div className="min-h-screen">
+      <Header />
+      <main>
+        <HeroSection />
+        <PainPointSection />
+        <HowItWorksSection />
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }

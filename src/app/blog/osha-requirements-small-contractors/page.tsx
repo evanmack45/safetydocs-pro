@@ -4,7 +4,7 @@ import BlogLayout from "@/components/BlogLayout";
 
 export const metadata: Metadata = {
   title:
-    "OSHA Requirements for Small Contractors: What You Actually Need | SafetyDocs Pro",
+    "OSHA Requirements for Small Contractors: What You Actually Need",
   description:
     "Cut through the confusion. Here is exactly what OSHA requires from residential subcontractors with fewer than 20 employees — documentation, training, and inspections.",
   keywords: [
@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     "OSHA fines small contractor",
     "OSHA residential construction",
   ],
+  alternates: {
+    canonical: "https://safetydocspro.com/blog/osha-requirements-small-contractors",
+  },
   openGraph: {
     title:
       "OSHA Requirements for Small Contractors: What You Actually Need",
@@ -31,6 +34,7 @@ export default function OshaRequirements() {
       description="Cut through the confusion. Here is exactly what OSHA requires from residential subcontractors with fewer than 20 employees."
       publishDate="2026-04-02"
       readTime="8 min"
+      slug="osha-requirements-small-contractors"
     >
       <p>
         You started your contracting business to do the work you

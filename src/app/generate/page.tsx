@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import Header from "@/components/Header";
 import { TRADES } from "@/lib/trades";
 import type {
   DocumentType,
@@ -21,29 +21,10 @@ import { generateSsspPdf } from "@/lib/generate-sssp-pdf";
 
 type FormState = "idle" | "loading" | "paying" | "success" | "error";
 
-function Header() {
+function FieldError({ message }: { message: string }) {
+  if (!message) return null;
   return (
-    <header className="border-b border-gray-200 bg-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-xl font-bold text-blue-800">
-          SafetyDocs Pro
-        </Link>
-        <nav className="flex items-center gap-6">
-          <Link
-            href="/pricing"
-            className="text-sm text-gray-600 hover:text-blue-800"
-          >
-            Pricing
-          </Link>
-          <Link
-            href="/"
-            className="text-sm text-gray-600 hover:text-blue-800"
-          >
-            Home
-          </Link>
-        </nav>
-      </div>
-    </header>
+    <p className="mt-1 text-sm text-red-600">{message}</p>
   );
 }
 
@@ -101,9 +82,22 @@ function ToolboxTalkForm({
   const [specificHazards, setSpecificHazards] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [projectLocation, setProjectLocation] = useState("");
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  function markTouched(field: string) {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  }
+
+  const tradeError = touched.trade && !trade ? "Please select your trade" : "";
+  const descError =
+    touched.projectDescription && !projectDescription.trim()
+      ? "Please describe your project"
+      : "";
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setTouched({ trade: true, projectDescription: true });
+    if (!trade || !projectDescription.trim()) return;
     onSubmit({
       trade,
       projectDescription,
@@ -127,7 +121,10 @@ function ToolboxTalkForm({
           required
           value={trade}
           onChange={(e) => setTrade(e.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          onBlur={() => markTouched("trade")}
+          className={`w-full rounded-lg border px-3 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+            tradeError ? "border-red-400" : "border-gray-300"
+          }`}
         >
           <option value="">Select your trade...</option>
           {TRADES.map((t) => (
@@ -136,6 +133,7 @@ function ToolboxTalkForm({
             </option>
           ))}
         </select>
+        <FieldError message={tradeError} />
       </div>
 
       <div>
@@ -152,8 +150,12 @@ function ToolboxTalkForm({
           placeholder="e.g., Re-roofing a 2-story single family home, removing old shingles and installing new architectural shingles."
           value={projectDescription}
           onChange={(e) => setProjectDescription(e.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          onBlur={() => markTouched("projectDescription")}
+          className={`w-full rounded-lg border px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+            descError ? "border-red-400" : "border-gray-300"
+          }`}
         />
+        <FieldError message={descError} />
       </div>
 
       <div>
@@ -225,9 +227,22 @@ function JsaForm({
   const [workEnvironment, setWorkEnvironment] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [projectLocation, setProjectLocation] = useState("");
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  function markTouched(field: string) {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  }
+
+  const tradeError = touched.trade && !trade ? "Please select your trade" : "";
+  const taskError =
+    touched.taskDescription && !taskDescription.trim()
+      ? "Please describe the task"
+      : "";
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setTouched({ trade: true, taskDescription: true });
+    if (!trade || !taskDescription.trim()) return;
     onSubmit({
       trade,
       taskDescription,
@@ -251,7 +266,10 @@ function JsaForm({
           required
           value={trade}
           onChange={(e) => setTrade(e.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          onBlur={() => markTouched("trade")}
+          className={`w-full rounded-lg border px-3 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+            tradeError ? "border-red-400" : "border-gray-300"
+          }`}
         >
           <option value="">Select your trade...</option>
           {TRADES.map((t) => (
@@ -260,6 +278,7 @@ function JsaForm({
             </option>
           ))}
         </select>
+        <FieldError message={tradeError} />
       </div>
 
       <div>
@@ -276,8 +295,12 @@ function JsaForm({
           placeholder="e.g., Installing new 30-year architectural shingles on a 2-story residential home with a 6/12 pitch roof, including tear-off of existing roofing."
           value={taskDescription}
           onChange={(e) => setTaskDescription(e.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          onBlur={() => markTouched("taskDescription")}
+          className={`w-full rounded-lg border px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+            taskError ? "border-red-400" : "border-gray-300"
+          }`}
         />
+        <FieldError message={taskError} />
       </div>
 
       <div>
@@ -355,9 +378,30 @@ function SsspForm({
   const [projectDuration, setProjectDuration] = useState("");
   const [numberOfWorkers, setNumberOfWorkers] = useState("");
   const [specificHazards, setSpecificHazards] = useState("");
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  function markTouched(field: string) {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  }
+
+  const tradeError = touched.trade && !trade ? "Please select your trade" : "";
+  const descError =
+    touched.projectDescription && !projectDescription.trim()
+      ? "Please describe your project"
+      : "";
+  const addressError =
+    touched.projectAddress && !projectAddress.trim()
+      ? "Please enter the project address"
+      : "";
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setTouched({
+      trade: true,
+      projectDescription: true,
+      projectAddress: true,
+    });
+    if (!trade || !projectDescription.trim() || !projectAddress.trim()) return;
     onSubmit({
       trade,
       projectDescription,
@@ -384,7 +428,10 @@ function SsspForm({
           required
           value={trade}
           onChange={(e) => setTrade(e.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          onBlur={() => markTouched("trade")}
+          className={`w-full rounded-lg border px-3 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+            tradeError ? "border-red-400" : "border-gray-300"
+          }`}
         >
           <option value="">Select your trade...</option>
           {TRADES.map((t) => (
@@ -393,6 +440,7 @@ function SsspForm({
             </option>
           ))}
         </select>
+        <FieldError message={tradeError} />
       </div>
 
       <div>
@@ -409,8 +457,12 @@ function SsspForm({
           placeholder="e.g., Complete re-roofing of a 2-story colonial home including tear-off, sheathing repair, ice/water shield, and new architectural shingles."
           value={projectDescription}
           onChange={(e) => setProjectDescription(e.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          onBlur={() => markTouched("projectDescription")}
+          className={`w-full rounded-lg border px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+            descError ? "border-red-400" : "border-gray-300"
+          }`}
         />
+        <FieldError message={descError} />
       </div>
 
       <div>
@@ -427,8 +479,12 @@ function SsspForm({
           placeholder="e.g., 456 Maple Ave, Springfield, IL 62704"
           value={projectAddress}
           onChange={(e) => setProjectAddress(e.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          onBlur={() => markTouched("projectAddress")}
+          className={`w-full rounded-lg border px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+            addressError ? "border-red-400" : "border-gray-300"
+          }`}
         />
+        <FieldError message={addressError} />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
