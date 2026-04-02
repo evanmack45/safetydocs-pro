@@ -14,7 +14,11 @@ export async function POST(request: Request) {
   }
 
   const documentType = body.documentType as string;
-  if (documentType !== "toolbox-talk" && documentType !== "jsa") {
+  if (
+    documentType !== "toolbox-talk" &&
+    documentType !== "jsa" &&
+    documentType !== "sssp"
+  ) {
     return Response.json(
       { error: "Invalid document type" },
       { status: 400 }

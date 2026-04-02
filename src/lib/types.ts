@@ -1,4 +1,4 @@
-export type DocumentType = "toolbox-talk" | "jsa";
+export type DocumentType = "toolbox-talk" | "jsa" | "sssp";
 
 export interface ToolboxTalkRequest {
   trade: string;
@@ -67,6 +67,51 @@ export interface JsaGenerateResponse {
   document: JsaDocument;
 }
 
+export interface SsspRequest {
+  trade: string;
+  projectDescription: string;
+  projectAddress: string;
+  companyName: string;
+  projectStartDate: string;
+  projectDuration: string;
+  numberOfWorkers: string;
+  specificHazards: string;
+}
+
+export interface SsspSection {
+  heading: string;
+  content: string;
+}
+
+export interface SsspHazardEntry {
+  hazard: string;
+  riskLevel: "Low" | "Medium" | "High" | "Critical";
+  controlMeasures: string[];
+  responsibleParty: string;
+  oshaReference: string;
+}
+
+export interface SsspDocument {
+  title: string;
+  trade: string;
+  date: string;
+  companyName: string;
+  projectAddress: string;
+  projectDescription: string;
+  projectStartDate: string;
+  projectDuration: string;
+  numberOfWorkers: string;
+  sections: SsspSection[];
+  hazardAssessment: SsspHazardEntry[];
+  ppeMatrix: { role: string; requiredPpe: string[] }[];
+  emergencyContacts: { role: string; responsibility: string }[];
+  oshaReferences: string[];
+}
+
+export interface SsspGenerateResponse {
+  document: SsspDocument;
+}
+
 export interface DocumentPrice {
   type: DocumentType;
   name: string;
@@ -105,6 +150,26 @@ export const DOCUMENT_PRICES: DocumentPrice[] = [
       "PPE requirements per task step",
       "OSHA regulation citations",
       "Print-ready PDF table format",
+    ],
+  },
+  {
+    type: "sssp",
+    name: "Site-Specific Safety Plan (SSSP)",
+    price: 7900,
+    description:
+      "Comprehensive site safety plan covering all OSHA requirements for your project",
+    features: [
+      "Project overview and scope",
+      "Complete hazard assessment with risk ratings",
+      "Emergency procedures and contacts",
+      "PPE matrix by role",
+      "Fall protection plan",
+      "Electrical safety procedures",
+      "Scaffold and excavation safety (trade-specific)",
+      "Training requirements and documentation",
+      "Incident reporting procedures",
+      "OSHA citations throughout (29 CFR 1926)",
+      "Multi-page professional PDF",
     ],
   },
 ];

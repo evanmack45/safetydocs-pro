@@ -8,13 +8,16 @@ import type {
   DocumentType,
   ToolboxTalkDocument,
   JsaDocument,
+  SsspDocument,
   GenerateResponse,
   JsaGenerateResponse,
+  SsspGenerateResponse,
   GenerateError,
 } from "@/lib/types";
 import { DOCUMENT_PRICES } from "@/lib/types";
 import { generateToolboxTalkPdf } from "@/lib/generate-pdf";
 import { generateJsaPdf } from "@/lib/generate-jsa-pdf";
+import { generateSsspPdf } from "@/lib/generate-sssp-pdf";
 
 type FormState = "idle" | "loading" | "paying" | "success" | "error";
 
@@ -56,7 +59,7 @@ function DocumentTypeSelector({
       <label className="mb-3 block text-sm font-medium text-gray-700">
         Document Type
       </label>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-3">
         {DOCUMENT_PRICES.map((doc) => (
           <button
             key={doc.type}
@@ -332,6 +335,192 @@ function JsaForm({
       <SubmitButton
         loading={loading}
         label="Generate Job Safety Analysis"
+      />
+    </form>
+  );
+}
+
+function SsspForm({
+  onSubmit,
+  loading,
+}: {
+  onSubmit: (data: Record<string, string>) => void;
+  loading: boolean;
+}) {
+  const [trade, setTrade] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [projectAddress, setProjectAddress] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [projectStartDate, setProjectStartDate] = useState("");
+  const [projectDuration, setProjectDuration] = useState("");
+  const [numberOfWorkers, setNumberOfWorkers] = useState("");
+  const [specificHazards, setSpecificHazards] = useState("");
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    onSubmit({
+      trade,
+      projectDescription,
+      projectAddress,
+      companyName,
+      projectStartDate,
+      projectDuration,
+      numberOfWorkers,
+      specificHazards,
+    });
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <label
+          htmlFor="sssp-trade"
+          className="mb-1 block text-sm font-medium text-gray-700"
+        >
+          Trade *
+        </label>
+        <select
+          id="sssp-trade"
+          required
+          value={trade}
+          onChange={(e) => setTrade(e.target.value)}
+          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Select your trade...</option>
+          {TRADES.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label
+          htmlFor="sssp-projectDescription"
+          className="mb-1 block text-sm font-medium text-gray-700"
+        >
+          Project Description *
+        </label>
+        <textarea
+          id="sssp-projectDescription"
+          required
+          rows={3}
+          placeholder="e.g., Complete re-roofing of a 2-story colonial home including tear-off, sheathing repair, ice/water shield, and new architectural shingles."
+          value={projectDescription}
+          onChange={(e) => setProjectDescription(e.target.value)}
+          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label
+          htmlFor="sssp-projectAddress"
+          className="mb-1 block text-sm font-medium text-gray-700"
+        >
+          Project Address *
+        </label>
+        <input
+          id="sssp-projectAddress"
+          type="text"
+          required
+          placeholder="e.g., 456 Maple Ave, Springfield, IL 62704"
+          value={projectAddress}
+          onChange={(e) => setProjectAddress(e.target.value)}
+          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label
+            htmlFor="sssp-companyName"
+            className="mb-1 block text-sm font-medium text-gray-700"
+          >
+            Company Name (optional)
+          </label>
+          <input
+            id="sssp-companyName"
+            type="text"
+            placeholder="Your company name"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="sssp-startDate"
+            className="mb-1 block text-sm font-medium text-gray-700"
+          >
+            Project Start Date (optional)
+          </label>
+          <input
+            id="sssp-startDate"
+            type="text"
+            placeholder="e.g., April 15, 2026"
+            value={projectStartDate}
+            onChange={(e) => setProjectStartDate(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label
+            htmlFor="sssp-duration"
+            className="mb-1 block text-sm font-medium text-gray-700"
+          >
+            Estimated Duration (optional)
+          </label>
+          <input
+            id="sssp-duration"
+            type="text"
+            placeholder="e.g., 5 days"
+            value={projectDuration}
+            onChange={(e) => setProjectDuration(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="sssp-workers"
+            className="mb-1 block text-sm font-medium text-gray-700"
+          >
+            Number of Workers (optional)
+          </label>
+          <input
+            id="sssp-workers"
+            type="text"
+            placeholder="e.g., 4-6"
+            value={numberOfWorkers}
+            onChange={(e) => setNumberOfWorkers(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="sssp-hazards"
+          className="mb-1 block text-sm font-medium text-gray-700"
+        >
+          Known Site Hazards (optional)
+        </label>
+        <textarea
+          id="sssp-hazards"
+          rows={2}
+          placeholder="e.g., Power lines on south side, steep lot, asbestos in existing shingles, limited staging area"
+          value={specificHazards}
+          onChange={(e) => setSpecificHazards(e.target.value)}
+          className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <SubmitButton
+        loading={loading}
+        label="Generate Safety Plan"
       />
     </form>
   );
@@ -627,6 +816,165 @@ function JsaPreview({
   );
 }
 
+function SsspPreview({
+  document,
+  onDownload,
+  onReset,
+}: {
+  document: SsspDocument;
+  onDownload: () => void;
+  onReset: () => void;
+}) {
+  const riskColors: Record<string, string> = {
+    Low: "text-green-700 bg-green-50 border-green-200",
+    Medium: "text-yellow-700 bg-yellow-50 border-yellow-200",
+    High: "text-amber-700 bg-amber-50 border-amber-200",
+    Critical: "text-red-700 bg-red-50 border-red-200",
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-gray-900">
+          Your Site-Specific Safety Plan
+        </h2>
+        <div className="flex gap-3">
+          <button
+            onClick={onReset}
+            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+          >
+            Generate Another
+          </button>
+          <button
+            onClick={onDownload}
+            className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-gray-900 shadow transition hover:bg-amber-400"
+          >
+            Download PDF
+          </button>
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="rounded-t-xl bg-blue-800 px-6 py-4 text-white">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-blue-200">
+                SafetyDocs Pro - Site-Specific Safety Plan
+              </p>
+              <h3 className="mt-1 text-xl font-bold">
+                {document.title}
+              </h3>
+            </div>
+            <div className="text-right text-sm text-blue-200">
+              <p>{document.date}</p>
+              <p>{document.companyName}</p>
+            </div>
+          </div>
+          <div className="mt-2 flex flex-wrap gap-4 text-sm text-blue-200">
+            <span>Trade: {document.trade}</span>
+            <span>Address: {document.projectAddress}</span>
+            <span>Workers: {document.numberOfWorkers}</span>
+            <span>Duration: {document.projectDuration}</span>
+          </div>
+        </div>
+
+        <div className="divide-y divide-gray-100 px-6">
+          {document.sections.map((section, idx) => (
+            <div key={idx} className="py-4">
+              <h4 className="mb-2 text-sm font-bold uppercase tracking-wide text-blue-800">
+                {section.heading}
+              </h4>
+              <div className="whitespace-pre-line text-sm leading-relaxed text-gray-700">
+                {section.content}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {document.hazardAssessment.length > 0 && (
+          <div className="border-t border-gray-200 px-4 py-4">
+            <h4 className="mb-3 px-2 text-sm font-bold uppercase tracking-wide text-blue-800">
+              Hazard Assessment
+            </h4>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 text-left">
+                    <th className="px-2 py-2 text-xs font-bold uppercase text-blue-800">
+                      Hazard
+                    </th>
+                    <th className="px-2 py-2 text-xs font-bold uppercase text-blue-800">
+                      Risk
+                    </th>
+                    <th className="px-2 py-2 text-xs font-bold uppercase text-blue-800">
+                      Controls
+                    </th>
+                    <th className="px-2 py-2 text-xs font-bold uppercase text-blue-800">
+                      Responsible
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {document.hazardAssessment.map(
+                    (entry, idx) => (
+                      <tr
+                        key={idx}
+                        className="border-b border-gray-100"
+                      >
+                        <td className="px-2 py-2 text-gray-900">
+                          {entry.hazard}
+                        </td>
+                        <td className="px-2 py-2">
+                          <span
+                            className={`inline-block rounded px-2 py-0.5 text-xs font-semibold ${riskColors[entry.riskLevel] ?? ""}`}
+                          >
+                            {entry.riskLevel}
+                          </span>
+                        </td>
+                        <td className="px-2 py-2 text-gray-700">
+                          {entry.controlMeasures.join("; ")}
+                        </td>
+                        <td className="px-2 py-2 text-gray-700">
+                          {entry.responsibleParty}
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {document.oshaReferences.length > 0 && (
+          <div className="border-t border-gray-200 bg-gray-50 px-6 py-4">
+            <h4 className="mb-2 text-sm font-bold uppercase tracking-wide text-blue-800">
+              OSHA Regulation References
+            </h4>
+            <ul className="space-y-1 text-sm text-gray-600">
+              {document.oshaReferences.map((ref, idx) => (
+                <li key={idx}>{ref}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      <div className="text-center">
+        <button
+          onClick={onDownload}
+          className="rounded-lg bg-blue-800 px-8 py-3 text-lg font-semibold text-white shadow transition hover:bg-blue-700"
+        >
+          Download as PDF
+        </button>
+        <p className="mt-2 text-sm text-gray-500">
+          Multi-page professional safety plan with signature lines
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function GeneratePageContent() {
   const searchParams = useSearchParams();
   const initialType =
@@ -638,6 +986,7 @@ function GeneratePageContent() {
   const [toolboxDoc, setToolboxDoc] =
     useState<ToolboxTalkDocument | null>(null);
   const [jsaDoc, setJsaDoc] = useState<JsaDocument | null>(null);
+  const [ssspDoc, setSsspDoc] = useState<SsspDocument | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
 
   async function handleCheckout(
@@ -684,10 +1033,12 @@ function GeneratePageContent() {
     setFormState("loading");
     setErrorMessage("");
 
-    const endpoint =
-      documentType === "jsa"
-        ? "/api/generate-jsa"
-        : "/api/generate-toolbox-talk";
+    const endpointMap: Record<DocumentType, string> = {
+      jsa: "/api/generate-jsa",
+      sssp: "/api/generate-sssp",
+      "toolbox-talk": "/api/generate-toolbox-talk",
+    };
+    const endpoint = endpointMap[documentType];
 
     try {
       const response = await fetch(endpoint, {
@@ -699,6 +1050,7 @@ function GeneratePageContent() {
       const result = (await response.json()) as
         | GenerateResponse
         | JsaGenerateResponse
+        | SsspGenerateResponse
         | GenerateError;
 
       if (!response.ok || "error" in result) {
@@ -711,7 +1063,9 @@ function GeneratePageContent() {
         return;
       }
 
-      if (documentType === "jsa" && "document" in result) {
+      if (documentType === "sssp" && "document" in result) {
+        setSsspDoc(result.document as SsspDocument);
+      } else if (documentType === "jsa" && "document" in result) {
         setJsaDoc(result.document as JsaDocument);
       } else if ("document" in result) {
         setToolboxDoc(result.document as ToolboxTalkDocument);
@@ -751,10 +1105,21 @@ function GeneratePageContent() {
     pdf.save(`jsa-${slug}-${dateSlug}.pdf`);
   }
 
+  function handleDownloadSssp() {
+    if (!ssspDoc) return;
+    const pdf = generateSsspPdf(ssspDoc);
+    const slug = ssspDoc.trade
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-");
+    const dateSlug = ssspDoc.date.replace(/[^a-z0-9]+/gi, "-");
+    pdf.save(`sssp-${slug}-${dateSlug}.pdf`);
+  }
+
   function handleReset() {
     setFormState("idle");
     setToolboxDoc(null);
     setJsaDoc(null);
+    setSsspDoc(null);
     setErrorMessage("");
   }
 
@@ -764,8 +1129,12 @@ function GeneratePageContent() {
   const priceLabel = price
     ? `$${(price.price / 100).toFixed(0)}`
     : "";
-  const docLabel =
-    documentType === "jsa" ? "Job Safety Analysis" : "Toolbox Talk";
+  const docLabelMap: Record<DocumentType, string> = {
+    jsa: "Job Safety Analysis",
+    sssp: "Site-Specific Safety Plan",
+    "toolbox-talk": "Toolbox Talk",
+  };
+  const docLabel = docLabelMap[documentType];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -804,15 +1173,24 @@ function GeneratePageContent() {
                   {priceLabel}
                 </span>
               </div>
-              {documentType === "toolbox-talk" ? (
+              {documentType === "toolbox-talk" && (
                 <ToolboxTalkForm
                   onSubmit={handleSubmit}
                   loading={
                     formState === "loading" || formState === "paying"
                   }
                 />
-              ) : (
+              )}
+              {documentType === "jsa" && (
                 <JsaForm
+                  onSubmit={handleSubmit}
+                  loading={
+                    formState === "loading" || formState === "paying"
+                  }
+                />
+              )}
+              {documentType === "sssp" && (
+                <SsspForm
                   onSubmit={handleSubmit}
                   loading={
                     formState === "loading" || formState === "paying"
@@ -835,6 +1213,14 @@ function GeneratePageContent() {
           <JsaPreview
             document={jsaDoc}
             onDownload={handleDownloadJsa}
+            onReset={handleReset}
+          />
+        )}
+
+        {formState === "success" && ssspDoc && (
+          <SsspPreview
+            document={ssspDoc}
+            onDownload={handleDownloadSssp}
             onReset={handleReset}
           />
         )}

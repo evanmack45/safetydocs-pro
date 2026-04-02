@@ -54,7 +54,7 @@ function PricingCard({
     >
       {highlighted && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-amber-400 px-4 py-1 text-sm font-semibold text-gray-900">
-          Most Detailed
+          Most Comprehensive
         </div>
       )}
       <div className="mb-6">
@@ -114,7 +114,7 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-3">
           {DOCUMENT_PRICES.map((doc) => (
             <PricingCard
               key={doc.type}
@@ -123,7 +123,7 @@ export default function PricingPage() {
               price={doc.price}
               description={doc.description}
               features={doc.features}
-              highlighted={doc.type === "jsa"}
+              highlighted={doc.type === "sssp"}
             />
           ))}
         </div>
